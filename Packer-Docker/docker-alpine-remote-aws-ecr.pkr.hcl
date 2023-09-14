@@ -14,7 +14,7 @@ source "docker" "alpine" {
 }
 
 build {
-  name    = "golden-docker-alpine"
+  #name    = "golden-docker-alpine"
   sources = [
     "source.docker.alpine"
   ]

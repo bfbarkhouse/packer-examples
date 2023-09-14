@@ -22,6 +22,13 @@ variable "jfrog_password" {
   sensitive = true
 }
 
+variable "jfrog_url" {
+  type =  string
+  #export PKR_VAR_jfrog_user=<your username> or use CLI/File methods
+  // Sensitive vars are hidden from output
+  sensitive = true
+}
+
 source "docker" "alpine" {
   image  = "alpine:latest"
   commit = true
@@ -31,7 +38,6 @@ source "docker" "alpine" {
 }
 
 build {
-  name = "golden-docker-alpine"
   sources = [
     "source.docker.alpine"
   ]
@@ -47,7 +53,7 @@ build {
     }
     #Upload to Artifactory
     post-processor "shell-local" {
-      inline = ["jf rt u golden-docker-alpine-*.tar bbarkhouse-generic-alpine --recursive=false --url http://3.234.144.153:8082/artifactory/ --user ${var.jfrog_user} --password ${var.jfrog_password}"]
+      inline = ["jf rt u golden-docker-alpine-*.tar bbarkhouse-generic-alpine --recursive=false --url ${var.jfrog_url} --user ${var.jfrog_user} --password ${var.jfrog_password}"]
     }
   }
 }
