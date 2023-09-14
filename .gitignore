@@ -1,2 +1,4 @@
 plugins/
 jfrog.pkrvars.hcl
+**/*.tar
+
