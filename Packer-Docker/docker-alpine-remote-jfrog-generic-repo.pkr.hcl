@@ -8,6 +8,20 @@ packer {
   }
 }
 
+variable "jfrog_user" {
+  type =  string
+  #export PKR_VAR_jfrog_user=<your username> or use CLI/File methods
+  // Sensitive vars are hidden from output
+  sensitive = true
+}
+
+variable "jfrog_password" {
+  type =  string
+  #export PKR_VAR_jfrog_password=<your password> or use CLI/File methods
+  // Sensitive vars are hidden from output
+  sensitive = true
+}
+
 source "docker" "alpine" {
   image  = "alpine:latest"
   commit = true
@@ -33,7 +47,7 @@ build {
     }
     #Upload to Artifactory
     post-processor "shell-local" {
-      inline = ["jf rt u golden-docker-alpine-*.tar bbarkhouse-generic-alpine --recursive=false --url http://3.234.144.153:8082/artifactory/ --user packer --password Packer123"]
+      inline = ["jf rt u golden-docker-alpine-*.tar bbarkhouse-generic-alpine --recursive=false --url http://3.234.144.153:8082/artifactory/ --user ${var.jfrog_user} --password ${var.jfrog_password}"]
     }
   }
 }
