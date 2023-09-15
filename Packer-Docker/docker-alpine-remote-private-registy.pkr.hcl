@@ -1,4 +1,4 @@
-#export PACKER_PLUGIN_PATH=<your top level plugin folder
+#export PACKER_PLUGIN_PATH=<your top level plugin folder>
 packer {
   required_plugins {
     docker = {
