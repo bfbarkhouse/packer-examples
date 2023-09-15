@@ -13,8 +13,9 @@ services:
     volumes:
       #- /path/data:/var/lib/registry
       #- /path/certs:/certs
-      - ./auth:/auth
+      - ./auth:/auth #path where the htpasswd file is located
 
+      #Generate the htpasswd file for basic auth before running compose
       #docker run \
       #--entrypoint htpasswd \
       #httpd:2 -Bbn testuser testpassword > auth/htpasswd
