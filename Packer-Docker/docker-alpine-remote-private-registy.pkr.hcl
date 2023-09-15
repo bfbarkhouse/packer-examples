@@ -9,20 +9,20 @@ packer {
 }
 variable "registry_server" {
   type =  string
-  #export PKR_VAR_registry_user=<your username> or use CLI/File methods
-  // Sensitive vars are hidden from output
+  #export PKR_VAR_registry_user=<your username> or use packer build -var-file="<path to .pkrvars.hcl>"
+  #Sensitive vars are hidden from output
   sensitive = true
 }
 variable "registry_user" {
   type =  string
-  #export PKR_VAR_registry_user=<your username> or use CLI/File methods
-  // Sensitive vars are hidden from output
+  #export PKR_VAR_registry_user=<your username> or use packer build -var-file="<path to .pkrvars.hcl>"
+  #Sensitive vars are hidden from output
   sensitive = true
 }
 variable "registry_password" {
   type =  string
-  #export PKR_VAR_registry_password=<your username> or use CLI/File methods
-  // Sensitive vars are hidden from output
+  #export PKR_VAR_registry_password=<your username> or use packer build -var-file="<path to .pkrvars.hcl>"
+  #Sensitive vars are hidden from output
   sensitive = true
 }
 
