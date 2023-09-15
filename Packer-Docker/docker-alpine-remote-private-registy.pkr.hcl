@@ -27,12 +27,14 @@ variable "registry_password" {
 }
 
 source "docker" "alpine" {
+  #hostname:port and repository where the desired image is located within the remote registry 
   image  = "localhost:5001/alpine-remote"
   commit = true
   changes = [
     #This is an example modification to the original image
     "WORKDIR /custom",
   ]
+  #when using a remote registry, the server URL and user credentials must be set in order to pull the image
   login = true
   login_server = "${var.registry_server}"
   login_username = "${var.registry_user}"
@@ -40,7 +42,6 @@ source "docker" "alpine" {
 }
 
 build {
-  #name    = "golden-docker-alpine"
   sources = [
     "source.docker.alpine"
   ]
@@ -50,6 +51,7 @@ build {
         tags = ["0.2", "latest"]
       }
     post-processor "docker-push" {
+      #when using a remote registry, the server URL and user credentials must be set in order to push the new image
       login = true
       login_server = "${var.registry_server}"
       login_username = "${var.registry_user}"
