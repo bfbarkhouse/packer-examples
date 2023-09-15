@@ -14,3 +14,5 @@ services:
       #- /path/data:/var/lib/registry
       #- /path/certs:/certs
       - ./auth:/auth
+
+      #docker compose up -d
