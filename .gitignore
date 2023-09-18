@@ -1,6 +1,5 @@
 plugins/
-jfrog.pkrvars.hcl
-private-registry.pkrvars.hcl
+*.pkrvars.hcl
 *.tar
 bofa*
 
