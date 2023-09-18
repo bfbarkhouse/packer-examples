@@ -7,32 +7,32 @@ packer {
   }
 }
 variable "client_id" {
-  type =  string
+  type      = string
   sensitive = true
 }
 variable "client_secret" {
-  type =  string
+  type      = string
   sensitive = true
 }
 variable "subscription_id" {
-  type =  string
+  type      = string
   sensitive = true
 }
 variable "tenant_id" {
-  type =  string
+  type      = string
   sensitive = true
 }
 variable "resource_group" {
-  type =  string
+  type = string
 }
 variable "os_type" {
-  type =  string
+  type = string
 }
 variable "image_name" {
-  type =  string
+  type = string
 }
 variable "location" {
-  type =  string
+  type = string
 }
 
 source "azure-arm" "ubuntu" {
@@ -55,7 +55,7 @@ source "azure-arm" "ubuntu" {
   shared_image_gallery_destination {
     subscription         = "${var.subscription_id}"
     resource_group       = "${var.resource_group}"
-    gallery_name         = "Packer_Image_Gallery" #compute gallery must exist
+    gallery_name         = "Packer_Image_Gallery"                #compute gallery must exist
     image_name           = "packer-ubuntu-22-04-lts-gen2-shared" #vm definition must exist
     image_version        = "1.0.0"
     replication_regions  = ["eastus", "westus"]

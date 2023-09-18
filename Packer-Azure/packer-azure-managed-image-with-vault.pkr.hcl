@@ -9,7 +9,7 @@ packer {
 locals {
   #At a minmimum, VAULT_ADDR and VAULT_TOKEN should be set as env variables
   #https://developer.hashicorp.com/packer/docs/templates/hcl_templates/functions/contextual/vault
-  client_secret = vault("/secret/data/az-creds", "client-secret") 
+  client_secret = vault("/secret/data/az-creds", "client-secret")
 }
 
 source "azure-arm" "ubuntu" {

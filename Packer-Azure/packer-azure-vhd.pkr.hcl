@@ -7,32 +7,32 @@ packer {
   }
 }
 variable "client_id" {
-  type =  string
+  type      = string
   sensitive = true
 }
 variable "client_secret" {
-  type =  string
+  type      = string
   sensitive = true
 }
 variable "subscription_id" {
-  type =  string
+  type      = string
   sensitive = true
 }
 variable "tenant_id" {
-  type =  string
+  type      = string
   sensitive = true
 }
 variable "resource_group" {
-  type =  string
+  type = string
 }
 variable "os_type" {
-  type =  string
+  type = string
 }
 variable "image_name" {
-  type =  string
+  type = string
 }
 variable "location" {
-  type =  string
+  type = string
 }
 
 source "azure-arm" "ubuntu" {
@@ -40,19 +40,19 @@ source "azure-arm" "ubuntu" {
     dept = "Engineering"
     task = "Image deployment"
   }
-  client_id                         = "${var.client_id}"
-  client_secret                     = "${var.client_secret}"
-  location                          = "${var.location}"
+  client_id     = "${var.client_id}"
+  client_secret = "${var.client_secret}"
+  location      = "${var.location}"
   #create a disk snapshot and copy it to your storage account, then obtain the blob url within your storage account. https://learn.microsoft.com/en-us/azure/virtual-machines/scripts/copy-snapshot-to-storage-account
-  image_url = "https://bfbpackerstorage.blob.core.windows.net/vhd/packer-ubuntu-22-04-lts-gen2-20230916.vhd"
-  os_type                           = "${var.os_type}"
-  subscription_id                   = "${var.subscription_id}"
-  tenant_id                         = "${var.tenant_id}"
-  vm_size                           = "Standard_DS2_v2"
+  image_url              = "https://bfbpackerstorage.blob.core.windows.net/vhd/packer-ubuntu-22-04-lts-gen2-20230916.vhd"
+  os_type                = "${var.os_type}"
+  subscription_id        = "${var.subscription_id}"
+  tenant_id              = "${var.tenant_id}"
+  vm_size                = "Standard_DS2_v2"
   capture_container_name = "packer"
-  capture_name_prefix = "ubuntu"
-  resource_group_name = "${var.resource_group}"
-  storage_account = "bfbpackerstorage"
+  capture_name_prefix    = "ubuntu"
+  resource_group_name    = "${var.resource_group}"
+  storage_account        = "bfbpackerstorage"
 }
 
 build {
