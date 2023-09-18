@@ -7,27 +7,20 @@ packer {
     }
   }
 }
-variable "registry_server" {
+variable "registry_server" { #export PKR_VAR_registry_server=<your remote server URL> or use packer build -var-file="<path to .pkrvars.hcl>"
   type = string
-  #export PKR_VAR_registry_user=<your username> or use packer build -var-file="<path to .pkrvars.hcl>"
-  #Sensitive vars are hidden from output
-  sensitive = true
+  sensitive = true #Sensitive vars are hidden from output
 }
-variable "registry_repository" {
-  type = string
-  #export PKR_VAR_registry_user=<your username> or use packer build -var-file="<path to .pkrvars.hcl>"
+variable "registry_repository" { #export PKR_VAR_registry_repository=<your remote repo path> or use packer build -var-file="<path to .pkrvars.hcl>"
+  type = string 
 }
-variable "registry_user" {
+variable "registry_user" { #export PKR_VAR_registry_user=<your username> or use packer build -var-file="<path to .pkrvars.hcl>"
   type = string
-  #export PKR_VAR_registry_user=<your username> or use packer build -var-file="<path to .pkrvars.hcl>"
-  #Sensitive vars are hidden from output
-  sensitive = true
+  sensitive = true #Sensitive vars are hidden from output
 }
-variable "registry_password" {
+variable "registry_password" { #export PKR_VAR_registry_password=<your password or use packer build -var-file="<path to .pkrvars.hcl>"
   type = string
-  #export PKR_VAR_registry_password=<your username> or use packer build -var-file="<path to .pkrvars.hcl>"
-  #Sensitive vars are hidden from output
-  sensitive = true
+  sensitive = true #Sensitive vars are hidden from output
 }
 
 source "docker" "alpine" {
@@ -51,7 +44,7 @@ build {
   post-processors {
     post-processor "docker-tag" {
       repository = "${var.registry_repository}/alpine" #Tag the image with the URL to the repository
-      tags       = ["0.2", "latest"]
+      tags       = ["0.1", "latest"]
     }
     post-processor "docker-push" {
       #when using a remote registry, the server URL and user credentials must be set in order to push the new image
