@@ -1,20 +1,20 @@
 packer {
   required_plugins {
     docker = {
-      version = ">= 0.0.7"
+      version = ">= 1.0.1"
       source  = "github.com/hashicorp/docker"
     }
   }
 }
 
-source "docker" "ubuntu" {
-  image  = "ubuntu:xenial"
+source "docker" "alpine" {
+  image  = "alpine:latest"
   commit = true
 }
 
 build {
-  name = "learn-packer"
+  name = "alpine"
   sources = [
-    "source.docker.ubuntu"
+    "source.docker.alpine"
   ]
 }
