@@ -1,8 +1,0 @@
-client_id = "73fbcbf5-315f-453c-b2e2-26bf1f22914a"
-client_secret = "mSc8Q~57kUmeMH5HvTnFJrdl-eTlblyuOIxPOceT"
-tenant_id = "71cce8e2-b0ac-41bf-ae73-21d9f41b2b2b"
-subscription_id = "e53f7cc8-2313-4dfb-b862-b7da7db87b25"
-resource_group = "bfbarkhouse-packertest-rg"
-os_type = "Linux"
-image_name = "Packer-Ubuntu"
-location = "East US"
