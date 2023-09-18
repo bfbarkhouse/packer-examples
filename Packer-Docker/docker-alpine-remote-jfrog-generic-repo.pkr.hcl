@@ -9,21 +9,21 @@ packer {
 }
 
 variable "jfrog_user" {
-  type =  string
+  type = string
   #export PKR_VAR_jfrog_user=<your username> or use CLI/File methods
   // Sensitive vars are hidden from output
   sensitive = true
 }
 
 variable "jfrog_password" {
-  type =  string
+  type = string
   #export PKR_VAR_jfrog_password=<your password> or use CLI/File methods
   // Sensitive vars are hidden from output
   sensitive = true
 }
 
 variable "jfrog_url" {
-  type =  string
+  type = string
   #export PKR_VAR_jfrog_user=<your username> or use CLI/File methods
   // Sensitive vars are hidden from output
   sensitive = true

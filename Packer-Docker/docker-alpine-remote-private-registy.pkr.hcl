@@ -3,24 +3,24 @@ packer {
   required_plugins {
     docker = {
       version = ">= 1.0.1"
-      source = "github.com/hashicorp/docker"
+      source  = "github.com/hashicorp/docker"
     }
   }
 }
 variable "registry_server" {
-  type =  string
+  type = string
   #export PKR_VAR_registry_user=<your username> or use packer build -var-file="<path to .pkrvars.hcl>"
   #Sensitive vars are hidden from output
   sensitive = true
 }
 variable "registry_user" {
-  type =  string
+  type = string
   #export PKR_VAR_registry_user=<your username> or use packer build -var-file="<path to .pkrvars.hcl>"
   #Sensitive vars are hidden from output
   sensitive = true
 }
 variable "registry_password" {
-  type =  string
+  type = string
   #export PKR_VAR_registry_password=<your username> or use packer build -var-file="<path to .pkrvars.hcl>"
   #Sensitive vars are hidden from output
   sensitive = true
@@ -35,8 +35,8 @@ source "docker" "alpine" {
     "WORKDIR /custom",
   ]
   #when using a remote registry, the server URL and user credentials must be set in order to pull the image
-  login = true
-  login_server = "${var.registry_server}"
+  login          = true
+  login_server   = "${var.registry_server}"
   login_username = "${var.registry_user}"
   login_password = "${var.registry_password}"
 }
@@ -47,16 +47,16 @@ build {
   ]
   post-processors {
     post-processor "docker-tag" {
-        repository =  "localhost:5001/alpine-remote"
-        tags = ["0.2", "latest"]
-      }
+      repository = "localhost:5001/alpine-remote"
+      tags       = ["0.2", "latest"]
+    }
     post-processor "docker-push" {
       #when using a remote registry, the server URL and user credentials must be set in order to push the new image
-      login = true
-      login_server = "${var.registry_server}"
+      login          = true
+      login_server   = "${var.registry_server}"
       login_username = "${var.registry_user}"
       login_password = "${var.registry_password}"
     }
-}
+  }
 }
 

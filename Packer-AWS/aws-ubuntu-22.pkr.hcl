@@ -10,7 +10,7 @@ packer {
 }
 #Set a local variable to the current datetime in a readable format
 locals {
-    current_date = formatdate("YYYYMMDDhhmm", timestamp())
+  current_date = formatdate("YYYYMMDDhhmm", timestamp())
 }
 #Create EBS-backed AMI by launching a source AMI and re-packaging it into a new AMI after provisioning.
 source "amazon-ebs" "ubuntu" {
@@ -30,7 +30,7 @@ source "amazon-ebs" "ubuntu" {
 }
 
 build {
-  name    = "packer-demo-ubuntu-22-latest"
+  name = "packer-demo-ubuntu-22-latest"
   sources = [
     "source.amazon-ebs.ubuntu"
   ]
