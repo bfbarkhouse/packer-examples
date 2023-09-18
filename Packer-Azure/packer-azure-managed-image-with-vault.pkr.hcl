@@ -45,4 +45,4 @@ build {
 #$env:VAULT_TOKEN="dev-only-token"
 #.\vault.ext login
 #.\vault.exe secrets enable kv-v2
-#.\vault.exe kv put -mount=secret az-creds client-secret=mSc8Q~57kUmeMH5HvTnFJrdl-eTlblyuOIxPOceT
+#.\vault.exe kv put -mount=secret az-creds client-secret=<your azure secret>

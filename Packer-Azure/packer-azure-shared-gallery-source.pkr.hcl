@@ -42,12 +42,7 @@ source "azure-arm" "ubuntu" {
   }
   client_id                         = "${var.client_id}"
   client_secret                     = "${var.client_secret}"
-  #image_offer                       = "0001-com-ubuntu-server-jammy"
-  #image_publisher                   = "canonical"
-  #image_sku                         = "22_04-lts-gen2"
   location                          = "${var.location}"
-  #managed_image_name                = "packer-ubuntu-22-04-lts-gen2-shared"
-  #managed_image_resource_group_name = "bfbarkhouse-packertest-rg"
   os_type                           = "${var.os_type}"
   subscription_id                   = "${var.subscription_id}"
   tenant_id                         = "${var.tenant_id}"
