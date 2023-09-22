@@ -1,3 +1,4 @@
+#export PACKER_PLUGIN_PATH=../plugins
 packer {
   required_plugins {
     vmware = {

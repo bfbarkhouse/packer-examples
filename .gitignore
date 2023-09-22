@@ -2,4 +2,4 @@ plugins/
 *.pkrvars.hcl
 *.tar
 bofa*
-
+packer-vsphere*

@@ -1,4 +1,4 @@
-#export PACKER_PLUGIN_PATH=./plugins
+#export PACKER_PLUGIN_PATH=../plugins
 packer {
   required_plugins {
     docker = {
