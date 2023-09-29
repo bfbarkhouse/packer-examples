@@ -1,4 +1,5 @@
-#export PACKER_PLUGIN_PATH=./plugins
+#export PACKER_PLUGIN_PATH=../plugins
+#export AWS creds
 packer {
   required_plugins {
     docker = {
