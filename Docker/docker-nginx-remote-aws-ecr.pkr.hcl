@@ -1,5 +1,8 @@
 #export PACKER_PLUGIN_PATH=../plugins
 #export AWS creds
+#export HCP_CLIENT_ID
+#export HCP_CLIENT_SECRET
+#export HCP_PROJECT_ID
 packer {
   required_plugins {
     docker = {
@@ -21,11 +24,24 @@ source "docker" "ubuntu" {
   ]
 }
 
-
 build {
   sources = [
     "source.docker.ubuntu"
   ]
+  hcp_packer_registry {
+    bucket_name = "nginx"
+
+    description = "nginx images"
+
+    bucket_labels = {
+      "package" = "nginx"
+    }
+
+    build_labels = {
+      "os" = "ubuntu"
+      "version" = "0.10"
+    }
+  }
   provisioner "shell" {
     inline = [
       "apt-get update",

@@ -1,0 +1,60 @@
+#export PACKER_PLUGIN_PATH=../plugins
+#export AWS creds
+#export HCP_CLIENT_ID
+#export HCP_CLIENT_SECRET
+#export HCP_PROJECT_ID
+packer {
+  required_plugins {
+    amazon = {
+      version = ">= 1.2.0"
+      source  = "github.com/hashicorp/amazon"
+    }
+  }
+}
+#Set a local variable to the current datetime in a readable format
+locals {
+  current_date = formatdate("YYYYMMDDhhmm", timestamp())
+}
+#Create EBS-backed AMI by launching a source AMI and re-packaging it into a new AMI after provisioning.
+source "amazon-ebs" "nginx" {
+  ami_name      = "nginx-ubuntu-22-${local.current_date}"
+  instance_type = "t2.micro"
+  region        = "us-west-2"
+  source_ami_filter {
+    filters = {
+      name                = "ubuntu/images/hvm-ssd/ubuntu-jammy-22.*"
+      root-device-type    = "ebs"
+      virtualization-type = "hvm"
+    }
+    most_recent = true
+    owners      = ["099720109477"]
+  }
+  ssh_username = "ubuntu"
+  user_data_file = "./nginx-userdata.txt"
+}
+
+build {
+  sources = [
+    "source.amazon-ebs.nginx"
+  ]
+  hcp_packer_registry {
+    bucket_name = "nginx"
+
+    description = "nginx images"
+
+    bucket_labels = {
+      "package" = "nginx"
+    }
+
+    build_labels = {
+      "os" = "ubuntu"
+      "version" = "0.10"
+    }
+  }
+  provisioner "shell" {
+    inline = [
+      "sudo apt-get update",
+      "sudo apt-get install --no-install-recommends -y nginx"
+    ]
+  }
+}
