@@ -22,6 +22,3 @@ resource "aws_lb_listener" "lb_listener" {
     type             = "forward"
   }
 }
-output "load_balancer_ip" {
-  value = aws_lb.lb.dns_name
-}
