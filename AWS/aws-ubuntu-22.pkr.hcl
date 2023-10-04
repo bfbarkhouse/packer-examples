@@ -34,4 +34,7 @@ build {
   sources = [
     "source.amazon-ebs.ubuntu"
   ]
+  provisioner "shell" {
+    inline = ["sudo mkdir /custom"]
+}
 }

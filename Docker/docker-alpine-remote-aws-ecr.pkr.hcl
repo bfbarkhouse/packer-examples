@@ -22,14 +22,12 @@ build {
   post-processors {
     post-processor "docker-tag" {
       repository = "983083522813.dkr.ecr.us-east-1.amazonaws.com/bbarkhouse-docker-alpine"
-      tags       = ["0.2", "latest"]
+      tags       = ["0.4", "latest"]
     }
 
     post-processor "docker-push" {
       ecr_login = true
       #export AWS creds as env variables
-      #aws_access_key = "YOUR KEY HERE"
-      #aws_secret_key = "YOUR SECRET KEY HERE"
       login_server = "983083522813.dkr.ecr.us-east-1.amazonaws.com/bbarkhouse-docker-alpine"
     }
   }
