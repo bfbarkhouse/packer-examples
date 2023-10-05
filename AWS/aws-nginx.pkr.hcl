@@ -38,9 +38,9 @@ build {
     "source.amazon-ebs.nginx"
   ]
   hcp_packer_registry {
-    bucket_name = "nginx"
+    bucket_name = "nginx-AWS-AMI"
 
-    description = "nginx images"
+    description = "nginx AMIs"
 
     bucket_labels = {
       "package" = "nginx"
@@ -48,7 +48,7 @@ build {
 
     build_labels = {
       "os" = "ubuntu"
-      "version" = "0.10"
+      "version" = "0.1"
     }
   }
   provisioner "shell" {

@@ -29,9 +29,9 @@ build {
     "source.docker.ubuntu"
   ]
   hcp_packer_registry {
-    bucket_name = "nginx"
+    bucket_name = "nginx-AWS-ECR"
 
-    description = "nginx images"
+    description = "nginx docker ECR images"
 
     bucket_labels = {
       "package" = "nginx"
