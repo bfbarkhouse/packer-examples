@@ -19,7 +19,7 @@ source "amazon-ebs" "ubuntu" {
   region        = "us-west-2"
   source_ami_filter {
     filters = {
-      name                = "ubuntu/images/hvm-ssd/ubuntu-jammy-22.*"
+      name                = "ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64*"
       root-device-type    = "ebs"
       virtualization-type = "hvm"
     }
