@@ -3,4 +3,4 @@ plugins/
 *.tar
 bofa*
 packer-vsphere*
-.terraform
+.terraform*
