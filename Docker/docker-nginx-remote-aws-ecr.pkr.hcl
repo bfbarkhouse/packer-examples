@@ -30,7 +30,6 @@ build {
   ]
   hcp_packer_registry {
     bucket_name = "nginx-AWS-ECR"
-
     description = "nginx docker ECR images"
 
     bucket_labels = {
@@ -51,7 +50,7 @@ build {
   post-processors {
     post-processor "docker-tag" {
       repository = "983083522813.dkr.ecr.us-east-1.amazonaws.com/bbarkhouse-docker-nginx"
-      tags       = ["0.10", "latest"]
+      tags       = ["0.11", "latest"]
     }
 
     post-processor "docker-push" {
