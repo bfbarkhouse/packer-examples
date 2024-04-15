@@ -1,13 +1,9 @@
 # Locate the Packer built image
 data "hcp_packer_artifact" "nginx-AWS-ECR" {
-  bucket_name   = "nginx-AWS-ECR"
-  channel_name  = "latest"
-  platform      = "docker"
-  region        = "docker"
-}
-data "aws_ecr_image" "service_image" {
-  repository_name = "bbarkhouse-docker-nginx"
-  image_digest = data.hcp_packer_artifact.nginx-AWS-ECR.external_identifier
+  bucket_name  = "nginx-AWS-ECR"
+  channel_name = "latest"
+  platform     = "docker"
+  region       = "docker"
 }
 resource "kubernetes_deployment" "nginx" {
   metadata {
@@ -32,7 +28,7 @@ resource "kubernetes_deployment" "nginx" {
       }
       spec {
         container {
-          image = data.aws_ecr_image.service_image.image_uri
+          image = data.hcp_packer_artifact.nginx-AWS-ECR.labels["ImageDigest"]
           name  = "nginx"
 
           port {
