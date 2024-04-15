@@ -5,6 +5,10 @@ data "hcp_packer_artifact" "nginx-AWS-ECR" {
   platform      = "docker"
   region        = "docker"
 }
+data "aws_ecr_image" "service_image" {
+  repository_name = "bbarkhouse-docker-nginx"
+  image_digest = data.hcp_packer_artifact.nginx-AWS-ECR.external_identifier
+}
 resource "kubernetes_deployment" "nginx" {
   metadata {
     name = "scalable-nginx-example"
@@ -28,7 +32,7 @@ resource "kubernetes_deployment" "nginx" {
       }
       spec {
         container {
-          image = data.hcp_packer_artifact.nginx-AWS-ECR.external_identifier
+          image = data.aws_ecr_image.service_image.image_uri
           name  = "nginx"
 
           port {

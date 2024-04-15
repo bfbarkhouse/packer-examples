@@ -4,4 +4,7 @@ plugins/
 bofa*
 packer-vsphere*
 .terraform*
-learn-terraform-provision-eks-cluster
+k8s/deployment/.terraform*
+k8s/deployment/*.tfstate*
+k8s/eks/.terraform*
+k8s/eks/*.tfstate*
