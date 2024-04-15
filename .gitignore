@@ -4,3 +4,4 @@ plugins/
 bofa*
 packer-vsphere*
 .terraform*
+learn*
