@@ -4,4 +4,4 @@ plugins/
 bofa*
 packer-vsphere*
 .terraform*
-learn*
+learn-terraform-provision-eks-cluster
