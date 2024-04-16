@@ -11,6 +11,9 @@ packer {
     }
   }
 }
+locals {
+  current_date = formatdate("YYYYMMDDhhmm", timestamp())
+}
 
 source "docker" "ubuntu" {
   image  = "ubuntu"
@@ -20,7 +23,8 @@ source "docker" "ubuntu" {
     "ENV HOSTNAME www.example.com",
     "EXPOSE 80 443",
     "LABEL version=1.0",
-    "ENTRYPOINT [\"nginx\", \"-g\", \"daemon off;\"]"
+    #"CMD [\"nginx\", \"-g\", \"daemon off;\"]"
+    "ENTRYPOINT nginx -g 'daemon off;'"
   ]
 }
 
@@ -50,7 +54,7 @@ build {
   post-processors {
     post-processor "docker-tag" {
       repository = "983083522813.dkr.ecr.us-east-1.amazonaws.com/bbarkhouse-docker-nginx"
-      tags       = ["0.11", "latest"]
+      tags       = [local.current_date, "latest"]
     }
 
     post-processor "docker-push" {
