@@ -50,7 +50,7 @@ build {
     ]
   }
   provisioner "file" {
-    #Copying SELinux policy to image
+    #Copying custom SELinux policy to image
     source = "selinux-config"
     destination = "/etc/selinux/config"
   }
