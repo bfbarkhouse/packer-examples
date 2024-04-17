@@ -8,3 +8,4 @@ k8s/deployment/.terraform*
 k8s/deployment/*.tfstate*
 k8s/eks/.terraform*
 k8s/eks/*.tfstate*
+Docker/selinux-config
