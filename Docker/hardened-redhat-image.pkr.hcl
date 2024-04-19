@@ -24,19 +24,23 @@ source "docker" "redhat-ubi9" {
 build {
   name    = "redhat-ubi9-hardened-${local.current_date}"
   sources = ["source.docker.redhat-ubi9"]
-  #hcp_packer_registry {
-    #bucket_name = ""
-    #description = ""
+  hcp_packer_registry {
+    bucket_name = "Red-Hat-Universal-Base-Image"
+    description = "Implements OS hardening rules"
 
-    #bucket_labels = {
-    #  "key" = "value"
-    #}
+    bucket_labels = {
+      "os" = "Red Hat UBI"
+      "hardened" = "true"
+      "platform" = "OpenShift"
+      "team" = "Containers"
+    }
 
-    #build_labels = {
-    #  "key" = "value"
-    #  "key" = "value"
-    #}
-  #}
+    build_labels = {
+      "build-time" = timestamp()
+      "os-version" = "9.3-1610"
+      "packages" = "policycoreutils, selinux-policy, selinux-policy-targeted, libselinux, libselinux-utils"
+    }
+  }
   post-processors {
     post-processor "docker-tag" {
       repository = "redhat-ubi9-hardened"
