@@ -41,7 +41,7 @@ build {
     }
 
     build_labels = {
-      "os" = "ubuntu"
+      "os"      = "ubuntu"
       "version" = "0.10"
     }
   }

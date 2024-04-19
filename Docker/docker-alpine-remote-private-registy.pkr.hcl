@@ -8,18 +8,18 @@ packer {
   }
 }
 variable "registry_server" { #export PKR_VAR_registry_server=<your remote server URL> or use packer build -var-file="<path to .pkrvars.hcl>"
-  type = string
+  type      = string
   sensitive = true #Sensitive vars are hidden from output
 }
 variable "registry_repository" { #export PKR_VAR_registry_repository=<your remote repo path> or use packer build -var-file="<path to .pkrvars.hcl>"
-  type = string 
+  type = string
 }
 variable "registry_user" { #export PKR_VAR_registry_user=<your username> or use packer build -var-file="<path to .pkrvars.hcl>"
-  type = string
+  type      = string
   sensitive = true #Sensitive vars are hidden from output
 }
 variable "registry_password" { #export PKR_VAR_registry_password=<your password or use packer build -var-file="<path to .pkrvars.hcl>"
-  type = string
+  type      = string
   sensitive = true #Sensitive vars are hidden from output
 }
 

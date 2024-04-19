@@ -12,8 +12,8 @@ locals {
 }
 
 source "docker" "redhat-ubi9" {
-  image   = "redhat/ubi9:latest" #use a trusted minimalist base image
-  commit  = true
+  image    = "redhat/ubi9:latest" #use a trusted minimalist base image
+  commit   = true
   cap_drop = ["SYS_ADMIN"] #Drop SYS_ADMIN Linux capability
   changes = [
     "USER nonrootuser", #run as a non-root user
@@ -24,26 +24,26 @@ source "docker" "redhat-ubi9" {
 build {
   name    = "redhat-ubi9-hardened-${local.current_date}"
   sources = ["source.docker.redhat-ubi9"]
-  //   hcp_packer_registry {
-  //   bucket_name = ""
-  //   description = ""
+  #hcp_packer_registry {
+    #bucket_name = ""
+    #description = ""
 
-  //   bucket_labels = {
-  //     "key" = "value"
-  //   }
+    #bucket_labels = {
+    #  "key" = "value"
+    #}
 
-  //   build_labels = {
-  //     "key" = "value"
-  //     "key" = "value"
-  //   }
-  // }
-    post-processors {
+    #build_labels = {
+    #  "key" = "value"
+    #  "key" = "value"
+    #}
+  #}
+  post-processors {
     post-processor "docker-tag" {
       repository = "redhat-ubi9-hardened"
       tags       = [local.current_date, "latest"]
     }
-    }
-    provisioner "shell" {
+  }
+  provisioner "shell" {
     inline = [
       "adduser nonrootuser",
       "yum install -y policycoreutils selinux-policy selinux-policy-targeted libselinux libselinux-utils" #Install SELinux
@@ -51,7 +51,7 @@ build {
   }
   provisioner "file" {
     #Copying custom SELinux policy to image
-    source = "selinux-config"
+    source      = "selinux-config"
     destination = "/etc/selinux/config"
   }
 }
