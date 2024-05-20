@@ -25,26 +25,37 @@ variable "registry_password" { #export PKR_VAR_registry_password=<your password 
 locals {
   current_date = formatdate("YYYYMMDDhhmm", timestamp())
 }
-
+data "hcp-packer-artifact" "golden" {
+  bucket_name = "Red-Hat-Universal-Base-Image"
+  channel_name = "latest"
+  platform = "docker"
+  region = "docker"
+}
 source "docker" "redhat-ubi9" {
-  image    = "redhat/ubi9:latest" #use a trusted minimalist base image
-  commit   = true
-  cap_drop = ["SYS_ADMIN"] #Drop SYS_ADMIN Linux capability
+  image = data.hcp-packer-artifact.golden.labels["PackerArtifactID"]
+  commit = true
+  login          = true
+  login_server   = "${var.registry_server}"
+  login_username = "${var.registry_user}"
+  login_password = "${var.registry_password}"
   changes = [
-    #"USER nonrootuser", #run as a non-root user
+    "WORKDIR /var/www",
+    "ENV HOSTNAME www.example.com",
+    "EXPOSE 80 443",
+    "LABEL version=1.0",
+    "ENTRYPOINT nginx -g 'daemon off;'"
   ]
-
 }
 
 build {
-  name    = "redhat-ubi9-hardened-${local.current_date}"
+  name    = "redhat-ubi9-hardened-child-${local.current_date}"
   sources = ["source.docker.redhat-ubi9"]
   hcp_packer_registry {
-    bucket_name = "Red-Hat-Universal-Base-Image"
-    description = "Implements OS hardening rules"
+    bucket_name = "Red-Hat-Universal-Child-Image"
+    description = "Child image of hardened RH UBI9"
 
     bucket_labels = {
-      "os"       = "Red Hat UBI"
+      "os"       = "Red Hat UBI Child"
       "hardened" = "true"
       "platform" = "OpenShift"
       "team"     = "Containers"
@@ -53,24 +64,18 @@ build {
     build_labels = {
       "build-time" = timestamp()
       "os-version" = "9.3-1610"
-      "packages"   = "policycoreutils, selinux-policy, selinux-policy-targeted, libselinux, libselinux-utils"
+      "packages"   = "nginx"
     }
   }
-
   provisioner "shell" {
+    #remote_folder = "/home/nonrootuser/packer"
     inline = [
-      "yum install -y policycoreutils selinux-policy selinux-policy-targeted libselinux libselinux-utils" #Install SELinux
-      #"adduser nonrootuser"
+      "yum install -y nginx"
     ]
-  }
-  provisioner "file" {
-    #Copying custom SELinux policy to image
-    source      = "selinux-config"
-    destination = "/etc/selinux/config"
   }
   post-processors {
     post-processor "docker-tag" {
-      repository = "${var.registry_repository}/redhat-ubi9-hardened"
+      repository = "${var.registry_repository}/redhat-ubi9-hardened-child"
       tags       = [local.current_date, "latest"]
     }
     post-processor "docker-push" {
@@ -85,4 +90,3 @@ build {
 #docker run -it <id> --
 #https://www.redhat.com/en/blog/hardening-docker-containers-images-and-host-security-toolkit 
 #https://dl.dod.cyber.mil/wp-content/uploads/devsecops/pdf/Final_DevSecOps_Enterprise_Container_Hardening_Guide_1.2.pdf 
-#http://localhost:5001/v2/_catalog
